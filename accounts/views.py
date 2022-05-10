@@ -3,6 +3,7 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from . serializers import UserCreationSerializer
 from .models import User
+from drf_yasg.utils import swagger_auto_schema
 
 # Create your views here.
 class HelloAuthView(generics.GenericAPIView):
@@ -12,6 +13,8 @@ class HelloAuthView(generics.GenericAPIView):
 
 class UserRegisterAPIView(generics.GenericAPIView):
     serializer_class = UserCreationSerializer
+
+    @swagger_auto_schema(operation_summary="Create A User Account")
     def post(self, request):
         data = request.data
 
