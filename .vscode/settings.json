@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/11154c09-3272-4b48-9b00-8ba3f4d81ed5/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/dabo-pizza-shop",
+    "appService.deploySubpath": "."
+}
