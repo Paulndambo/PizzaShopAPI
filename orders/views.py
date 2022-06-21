@@ -1,6 +1,5 @@
 from ast import Or
 from django.shortcuts import render, get_object_or_404
-
 # Create your views here.
 from django.shortcuts import render
 from rest_framework import generics, status
