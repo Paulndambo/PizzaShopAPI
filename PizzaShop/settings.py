@@ -1,14 +1,16 @@
 from pathlib import Path
 from datetime import timedelta
 import os
+from decouple import config
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-f33uxp&_=!8&46^p#qn84j=q5@a3c=+h+!68_h76!pt0$6_xoh'
+SECRET_KEY = config("SECRET_KEY") #'django-insecure-f33uxp&_=!8&46^p#qn84j=q5@a3c=+h+!68_h76!pt0$6_xoh'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config("DEBUG", cast=bool)
 
 ALLOWED_HOSTS = ["*"]
 AUTH_USER_MODEL = "accounts.User"
@@ -70,13 +72,18 @@ WSGI_APPLICATION = 'PizzaShop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+DATABASES = {}
 
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+    DATABASES['default'] = dj_database_url.config(default=config('DATABASE_URL'))
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
